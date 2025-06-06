@@ -95,13 +95,13 @@ function VerifyDriver() {
 
   return (
     <div className="w-full h-screen flex flex-col">
-      <div className="bg-gray-200 h-14 flex items-center px-4">
-        <input
+     <div className="bg-orange-100 border-b border-orange-500 h-14 flex items-center px-4">
+     <input
           type="text"
           placeholder="Search drivers by Name, Email or Contact..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-1 rounded-md border border-gray-400 w-full max-w-md"
+          className="p-1 px-4 rounded-md border border-orange-400 bg-white w-full max-w-md"
         />
       </div>
 
@@ -140,7 +140,7 @@ function VerifyDriver() {
                           {isImageColumn ? (
                             <button
                               onClick={() => handleImageClick(value)}
-                              className="bg-gray-900 hover:bg-gray-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
+                              className="bg-teal-500 hover:bg-teal-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
                             >
                               View Image
                             </button>

@@ -1,12 +1,16 @@
-
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 export function ImageModal({ isOpen, onClose, imageUrl }) {
   if (!isOpen) return null;
 
   return (
-   <div className="fixed inset-0 bg-gray-800/50 flex items-center justify-center z-50">
-    <div className="bg-white p-4 rounded shadow-lg max-w-full max-h-full">
-        <img src={imageUrl} alt="Preview" className="max-w-[90vw] max-h-[80vh]" />
+    <div className="fixed inset-0 bg-gray-800/50 flex items-center justify-center z-50">
+      <div className="bg-white p-4 rounded shadow-lg max-w-full max-h-full">
+        <img
+          src={imageUrl}
+          alt="Preview"
+          className="max-w-[90vw] max-h-[80vh]"
+        />
         <div className="flex justify-end mt-4">
           <button
             onClick={onClose}
@@ -20,7 +24,6 @@ export function ImageModal({ isOpen, onClose, imageUrl }) {
   );
 }
 
-
 export function StatusModal({ isOpen, onClose, onSubmit, currentStatus }) {
   const [selectedStatus, setSelectedStatus] = useState(currentStatus);
 
@@ -31,8 +34,7 @@ export function StatusModal({ isOpen, onClose, onSubmit, currentStatus }) {
   if (!isOpen) return null;
 
   return (
- <div className="fixed inset-0 bg-gray-800/50 flex items-center justify-center z-50">
-
+    <div className="fixed inset-0 bg-gray-800/50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-md w-80 space-y-4">
         <h2 className="text-lg font-semibold">Update Driver Status</h2>
 
@@ -60,7 +62,7 @@ export function StatusModal({ isOpen, onClose, onSubmit, currentStatus }) {
           </button>
           <button
             onClick={() => onSubmit(selectedStatus)}
-            className="px-4 py-1 bg-teal-600 text-white hover:bg-blue-700 rounded-sm"
+            className="px-4 py-1 bg-teal-600 text-white hover:bg-teal-800 rounded-sm"
           >
             Submit
           </button>
@@ -69,8 +71,6 @@ export function StatusModal({ isOpen, onClose, onSubmit, currentStatus }) {
     </div>
   );
 }
-
-
 
 export function CreateDriverModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -142,34 +142,36 @@ export function CreateDriverModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800/50 z-50">
       <div className="bg-white rounded-lg w-[90%] max-w-3xl p-6 max-h-[90vh] overflow-y-auto">
-        <h2 className="text-xl font-bold mb-4">Create Driver</h2>
+        <h2 className="text-xl font-bold mb-4 text-orange-700">
+          Create Driver
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {textFields.map(({ label, key, type = "text" }) => (
             <div key={key}>
-              <label>{label}</label>
+              <label className="text-orange-700">{label}</label>
               <input
                 type={type}
                 value={formData[key]}
                 onChange={handleChange(key)}
-                className="p-2 border rounded w-full"
+                className="p-1 px-4 border border-orange-500 rounded w-full"
               />
             </div>
           ))}
 
           {imageFields.map(({ label, key }) => (
             <div key={key}>
-              <label>{label}</label>
+              <label className="text-orange-700">{label}</label>
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleFileChange(key)}
-                className="p-2 border rounded w-full"
+                className="p-1 px-4 border border-orange-500 rounded w-full"
               />
               {formData[key] && (
                 <img
                   src={formData[key]}
                   alt={key}
-                  className="mt-2 h-20 border object-cover"
+                  className="mt-2 h-20 border border-orange-500 object-cover"
                 />
               )}
             </div>
@@ -178,13 +180,13 @@ export function CreateDriverModal({ isOpen, onClose }) {
         <div className="flex justify-end mt-4 gap-2">
           <button
             onClick={onClose}
-            className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
+            className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-1 rounded"
           >
             Cancel
           </button>
           <button
             onClick={handleCreate}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+            className="bg-cyan-700 hover:bg-cyan-800 text-white px-4 py-1 rounded"
           >
             Create
           </button>
@@ -224,9 +226,7 @@ export function CreateUserModal({ isOpen, onClose }) {
     { label: "Confirm Password", key: "confirmPassword", type: "password" },
   ];
 
-  const imageFields = [
-    { label: "Avatar Image", key: "avatarImageURI" },
-  ];
+  const imageFields = [{ label: "Avatar Image", key: "avatarImageURI" }];
 
   const handleCreate = () => {
     console.log({ ...formData, id: Date.now().toString() });
@@ -238,28 +238,28 @@ export function CreateUserModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800/50 z-50">
       <div className="bg-white rounded-lg w-[90%] max-w-3xl p-6 max-h-[90vh] overflow-y-auto">
-        <h2 className="text-xl font-bold mb-4">Create User</h2>
+        <h2 className="text-xl font-bold mb-4 text-orange-700">Create User</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {textFields.map(({ label, key, type = "text" }) => (
             <div key={key}>
-              <label>{label}</label>
+              <label className="text-orange-700">{label}</label>
               <input
                 type={type}
                 value={formData[key]}
                 onChange={handleChange(key)}
-                className="p-2 border rounded w-full"
+                className="p-1 px-4 border border-orange-500 rounded w-full"
               />
             </div>
           ))}
 
           {imageFields.map(({ label, key }) => (
             <div key={key}>
-              <label>{label}</label>
+              <label className="text-orange-700">{label}</label>
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleFileChange(key)}
-                className="p-2 border rounded w-full"
+                className="p-1 px-4 border border-orange-500 rounded w-full"
               />
               {formData[key] && (
                 <img
@@ -275,13 +275,13 @@ export function CreateUserModal({ isOpen, onClose }) {
         <div className="flex justify-end mt-4 gap-2">
           <button
             onClick={onClose}
-            className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
+            className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-1 rounded"
           >
             Cancel
           </button>
           <button
             onClick={handleCreate}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+            className="bg-cyan-700 hover:bg-cyan-800 text-white px-4 py-1 rounded"
           >
             Create
           </button>
@@ -291,6 +291,107 @@ export function CreateUserModal({ isOpen, onClose }) {
   );
 }
 
+export function DriverControlModal({ isOpen, onClose, driverEntity }) {
+  const navigate = useNavigate();
+
+  if (!isOpen || !driverEntity) return null;
+  const handleDelete = (driverId) => {
+    console.log("Delete Driver:", driverId);
+    // Perform actual delete logic here (e.g., API call)
+  };
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+      <div className="bg-white p-6 rounded-lg shadow-md w-[90%] max-w-md">
+        <h2 className="text-xl font-bold mb-4 text-orange-700">Driver: {driverEntity.name}</h2>
+
+        <div className="space-y-3">
+          <button
+            className="w-full border border-teal-600 text-teal-600 py-2 rounded hover:bg-teal-50 transition duration-200"
+            onClick={() => navigate("/driverjourney")}
+          >
+            View Journey
+          </button>
+
+          <button
+            className="w-full border border-cyan-700 text-cyan-700 py-2 rounded hover:bg-cyan-50 transition duration-200"
+            // onClick={() => navigate(`/driver/${driverEntity.id}/orders`)}
+          >
+            Edit Driver
+          </button>
+
+          <button
+            className="w-full border border-rose-600 text-rose-600 py-2 rounded hover:bg-rose-50 transition duration-200"
+            onClick={() => {
+              handleDelete(driverEntity.id);
+              onClose();
+            }}
+          >
+            Delete Driver
+          </button>
+        </div>
+
+        <div className="flex justify-end mt-4">
+          <button
+            className="px-4 py-1 bg-gray-400 text-white rounded hover:bg-gray-500"
+            onClick={onClose}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 
+export function JourneyControlModal({ isOpen, onClose,  journeyEntity }) {
+  const navigate = useNavigate();
 
+  if (!isOpen || !journeyEntity) return null;
+  const handleDelete = (driverId) => {
+    console.log("Delete Driver:", driverId);
+    // Perform actual delete logic here (e.g., API call)
+  };
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+      <div className="bg-white p-6 rounded-lg shadow-md w-[90%] max-w-md">
+        <h2 className="text-xl font-bold mb-4 text-orange-700">Journey Id: {journeyEntity.id}</h2>
+
+        <div className="space-y-3">
+          <button
+            className="w-full border border-teal-600 text-teal-600 py-2 rounded hover:bg-teal-50 transition duration-200"
+            onClick={() => navigate("/journeyorders")}
+          >
+            View All Orders
+          </button>
+
+          <button
+            className="w-full border border-cyan-700 text-cyan-700 py-2 rounded hover:bg-cyan-50 transition duration-200"
+            onClick={() => navigate(`/driver/${journeyEntity.id}/orders`)}
+          >
+            Edit Journey
+          </button>
+
+          <button
+            className="w-full border border-rose-600 text-rose-600 py-2 rounded hover:bg-rose-50 transition duration-200"
+            onClick={() => {
+              handleDelete(journeyEntity.id);
+              onClose();
+            }}
+          >
+            Delete Journey
+          </button>
+        </div>
+
+        <div className="flex justify-end mt-4">
+          <button
+            className="px-4 py-1 bg-gray-400 text-white rounded hover:bg-gray-500"
+            onClick={onClose}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { CreateDriverModal, ImageModal, StatusModal } from "../component/reusableComponent";
+import {
+  CreateDriverModal,
+  DriverControlModal,
+  ImageModal,
+  StatusModal,
+} from "../component/reusableComponent";
 import { FaEdit } from "react-icons/fa";
 
 function DriverEntity() {
@@ -9,7 +14,8 @@ function DriverEntity() {
   const [statusModalOpen, setStatusModalOpen] = useState(false);
   const [selectedRowIndex, setSelectedRowIndex] = useState(null);
   const [createDriverModalOpen, setCreateDriverModalOpen] = useState(false);
-
+  const [controlModalOpen, setControlModalOpen] = useState(false);
+  const [selectedDriver, setSelectedDriver] = useState(null);
   const tableHeaders = [
     { key: "id", label: "ID" },
     { key: "name", label: "Name" },
@@ -30,6 +36,7 @@ function DriverEntity() {
     { key: "dlImageURI", label: "DL ImageURI" },
     { key: "rcImageURI", label: "RC ImageURI" },
     { key: "status", label: "Status" },
+    { key: "control", label: "control" },
   ];
 
   const [tableData, setTableData] = useState([
@@ -59,6 +66,11 @@ function DriverEntity() {
       status: "Pending",
     },
   ]);
+  const handleControlClick = (data) => {
+    setSelectedDriver(data);
+    setControlModalOpen(true);
+    // console.log("driver =",data)
+  };
 
   const handleImageClick = (uri) => {
     setSelectedImage(uri);
@@ -79,17 +91,17 @@ function DriverEntity() {
 
   return (
     <div className="w-full h-screen flex flex-col">
-      <div className="bg-gray-200 h-14 flex items-center justify-around px-4">
+      <div className="bg-orange-100 border-b border-orange-500 h-14 flex items-center justify-around px-4">
         <input
           type="text"
-          placeholder="Search drivers by Name, Email or Contact..."
+          placeholder="Search Driver by Name, Email or Contact..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-1 rounded-md border border-gray-400 w-full max-w-md"
+          className="p-1 rounded-md px-4 border border-orange-400 bg-white w-full max-w-md"
         />
         <button
           onClick={() => setCreateDriverModalOpen(true)}
-          className="bg-gray-900 hover:bg-gray-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
+          className="bg-cyan-800 hover:bg-gray-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
         >
           Create Driver
         </button>
@@ -128,6 +140,7 @@ function DriverEntity() {
                         .toLowerCase()
                         .includes("imageuri");
                       const isStatusColumn = header.key === "status";
+                      const isControlColumn = header.key === "control";
 
                       return (
                         <td
@@ -137,7 +150,7 @@ function DriverEntity() {
                           {isImageColumn ? (
                             <button
                               onClick={() => handleImageClick(value)}
-                              className="bg-gray-900 hover:bg-gray-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
+                              className="bg-teal-500 hover:bg-teal-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
                             >
                               View Image
                             </button>
@@ -163,6 +176,13 @@ function DriverEntity() {
                                 <FaEdit />
                               </button>
                             </div>
+                          ) : isControlColumn ? (
+                            <button
+                              onClick={() => handleControlClick(row)}
+                              className="bg-orange-600 hover:bg-gray-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
+                            >
+                              Control
+                            </button>
                           ) : (
                             value
                           )}
@@ -193,6 +213,11 @@ function DriverEntity() {
       <CreateDriverModal
         isOpen={createDriverModalOpen}
         onClose={() => setCreateDriverModalOpen(false)}
+      />
+      <DriverControlModal
+        isOpen={controlModalOpen}
+        onClose={() => setControlModalOpen(false)}
+        driverEntity={selectedDriver}
       />
     </div>
   );

@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { CreateUserModal, ImageModal, StatusModal } from "../component/reusableComponent";
+import {
+  CreateUserModal,
+  ImageModal,
+  StatusModal,
+} from "../component/reusableComponent";
 import { FaEdit } from "react-icons/fa";
 
 function UserEntity() {
@@ -15,21 +19,9 @@ function UserEntity() {
     { key: "name", label: "Name" },
     { key: "email", label: "Email Id" },
     { key: "contact", label: "Contact No." },
-    { key: "vehicleNo", label: "Vehicle no." },
-    { key: "vehicleCompany", label: "Vehicle Company" },
-    { key: "vehicleType", label: "Vehicle Type" },
-    { key: "dlNumber", label: "DL Number" },
-    { key: "aadharNumber", label: "Aadhar Number" },
-    { key: "bankName", label: "Bank Name" },
-    { key: "accountHolder", label: "Account Holder Name" },
-    { key: "accountNo", label: "Account No." },
-    { key: "ifsc", label: "IFSC Code" },
-    { key: "upiId", label: "UPI Id" },
-    { key: "vehicleImageURI", label: "Vehicle ImageURI" },
-    { key: "aadharImageURI", label: "Aadhar ImageURI" },
-    { key: "dlImageURI", label: "DL ImageURI" },
-    { key: "rcImageURI", label: "RC ImageURI" },
+    { key: "avatarImageURI", label: "Avatar ImageURI" },
     { key: "status", label: "Status" },
+    { key: "control", label: "Control" },
   ];
 
   const [tableData, setTableData] = useState([
@@ -38,28 +30,14 @@ function UserEntity() {
       name: "John Doe",
       email: "john@example.com",
       contact: "9876543210",
-      vehicleNo: "MH12AB1234",
-      vehicleCompany: "Tata",
-      vehicleType: "Truck",
-      dlNumber: "DL123456789",
-      aadharNumber: "AADHAR123456",
-      bankName: "HDFC",
-      accountHolder: "John D.",
-      accountNo: "1234567890",
-      ifsc: "HDFC0001234",
-      upiId: "john@upi",
-      vehicleImageURI:
+      avatarImageURI:
         "https://images.unsplash.com/photo-1729457046390-0eb8571eb1d4?w=600",
-      aadharImageURI:
-        "https://unsplash.com/photos/a-purple-vase-with-two-purple-flowers-in-it-BOa6aiwEMrc",
-      dlImageURI:
-        "https://images.unsplash.com/photo-1729457046390-0eb8571eb1d4?w=600",
-      rcImageURI:
-        "https://images.unsplash.com/photo-1733690577845-4f4641a456b3?w=600",
       status: "Pending",
     },
   ]);
-
+  const handleControlClick =(data)=>{
+  console.log("driver =",data)
+  }
   const handleImageClick = (uri) => {
     setSelectedImage(uri);
     setImageModalOpen(true);
@@ -79,17 +57,17 @@ function UserEntity() {
 
   return (
     <div className="w-full h-screen flex flex-col">
-      <div className="bg-gray-200 h-14 flex items-center justify-around px-4">
+      <div className="bg-orange-100 border-b border-orange-500 h-14 flex items-center justify-around px-4">
         <input
           type="text"
           placeholder="Search User by Name, Email or Contact..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-1 rounded-md border border-gray-400 w-full max-w-md"
+          className="p-1 px-4 rounded-md border border-orange-400 bg-white w-full max-w-md"
         />
         <button
           onClick={() => setCreateUserModalOpen(true)}
-          className="bg-gray-900 hover:bg-gray-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
+          className="bg-cyan-700 hover:bg-gray-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
         >
           Create User
         </button>
@@ -128,6 +106,7 @@ function UserEntity() {
                         .toLowerCase()
                         .includes("imageuri");
                       const isStatusColumn = header.key === "status";
+                      const isControlColumn = header.key === "control";
 
                       return (
                         <td
@@ -137,7 +116,7 @@ function UserEntity() {
                           {isImageColumn ? (
                             <button
                               onClick={() => handleImageClick(value)}
-                              className="bg-gray-900 hover:bg-gray-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
+                              className="bg-teal-500 hover:bg-teal-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
                             >
                               View Image
                             </button>
@@ -163,6 +142,13 @@ function UserEntity() {
                                 <FaEdit />
                               </button>
                             </div>
+                          ) : isControlColumn ? (
+                            <button
+                              onClick={() => handleControlClick(row)}
+                              className="bg-orange-600 hover:bg-gray-600 text-white text-sm px-3 py-1 rounded-sm shadow-sm transition-all duration-200"
+                            >
+                              Control
+                            </button>
                           ) : (
                             value
                           )}

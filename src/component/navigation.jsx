@@ -6,18 +6,19 @@ const Navigation = () => {
   const location = useLocation(); // 🔍 Get current path
 
   const navItems = [
-    { label: "Verify Driver", path: "/VerifyDriver" },
-    { label: "User", path: "/UserEntity" },
-    { label: "Driver", path: "/DriverEntity" },
-    { label: "Order", path: "/profile" },
-    { label: "Journey", path: "/profile" },
+    { label: "Verify Driver", path: "/verifydriver" },
+    { label: "User", path: "/user" },
+    { label: "Driver", path: "/driver" },
+    { label: "Order", path: "/allorders" },
+    { label: "Journey", path: "/alljourney" },
   ];
 
   return (
-    <div className="flex h-screen w-64 flex-col bg-gray-900 text-white shadow-lg">
+    <div className="flex h-screen w-64 flex-col bg-orange-500 text-white shadow-lg">
       {/* Logo */}
-      <div className="flex items-center justify-center h-24 border-b border-gray-700">
-        <img src={whiteLogo} alt="logo" className="w-34 h-34 object-contain" />
+      <div className="flex flex-col items-center justify-center h-24 border-b border-gray-700">
+        <img src={whiteLogo} alt="logo" className="w-30 h-30 object-contain" />
+        {/* <h4>Admin Panel</h4> */}
       </div>
 
       {/* Navigation Items */}
@@ -28,7 +29,7 @@ const Navigation = () => {
             <button
               key={index}
               onClick={() => navigate(item.path)}
-              className={`text-left text-lg font-medium transition-transform hover:translate-x-1 px-3 py-2 rounded-md ${
+              className={`text-left text-lg font-medium transition-transform hover:translate-x-1 px-3 py-1 rounded-md ${
                 isActive
                   ? "bg-yellow-100 border border-yellow-400 text-yellow-800"
                   : "hover:text-yellow-400"

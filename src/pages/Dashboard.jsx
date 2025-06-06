@@ -5,7 +5,7 @@ function Dashboard() {
   return (
     <div className="flex h-screen">
       <Navigation />
-      <div className="flex-1 overflow-y-auto bg-gray-100">
+      <div className="flex-1 overflow-y-auto bg-orange-50">
        <Outlet />
       </div>
     </div>
