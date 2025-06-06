@@ -8,7 +8,6 @@ import NotFound from './pages/NotFound'
 
 function App() {
   return (
-    
     <Routes>
       <Route path="/" element={<Dashboard/>} />
       <Route path="/settings" element={<Settings />} />
