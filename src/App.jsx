@@ -1,22 +1,21 @@
-import React from 'react'
-import { Routes,Route } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
-import Settings from './pages/Settings'
-import Profile from './pages/Profile'
-import Help from './pages/Help'
-import NotFound from './pages/NotFound'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import UserEntity from "./pages/UserEntity";
+import DriverEntity from "./pages/DriverEntity";
+import NotFound from "./pages/NotFound";
+import VerifyDriver from "./pages/VerifyDriver";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard/>} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/help" element={<Help />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<Dashboard />}>
+        <Route path="VerifyDriver" element={<VerifyDriver />} />
+        <Route path="UserEntity" element={<UserEntity/>} />
+         <Route path="DriverEntity" element={<DriverEntity/>} />
+      </Route>
     </Routes>
-   
-  )
+  );
 }
 
-export default App
+export default App;

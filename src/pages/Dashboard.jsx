@@ -1,16 +1,14 @@
 import React from "react";
 import Navigation from "../component/navigation";
-
+import { Outlet } from "react-router-dom";
 function Dashboard() {
   return (
-    <>
-      <div className="w-full"></div>
-      <div className="w-full h-screen flex">
-        <Navigation />
-        <div className="w-1/2 bg-rose-200 h-full"></div>
-        <div className="w-1/2 bg-cyan-200 h-full"></div>
+    <div className="flex h-screen">
+      <Navigation />
+      <div className="flex-1 overflow-y-auto bg-gray-100">
+       <Outlet />
       </div>
-    </>
+    </div>
   );
 }
 
