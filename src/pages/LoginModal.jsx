@@ -2,31 +2,41 @@
 
 import { useState } from "react"
 import { Mail, Lock, Eye, EyeOff, X } from "lucide-react"
+import { useDispatch, useSelector } from "react-redux"
+import { signIn } from "../redux/authThunk"
+import { selectAuthErrorMessage } from "../redux/selector"
 
-export default function LoginModal({ isOpen, onClose, onSwitchToSignup, onSwitchToForgotPassword }) {
+export default function LoginModal({ isOpen, onClose, onSwitchToForgotPassword }) {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const dispatch =useDispatch();
+  const errorMessage =useSelector(selectAuthErrorMessage);
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
+    role:"admin"
   })
 
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      console.log("Login attempt:", loginData)
-      alert("Login successful!")
-      onClose()
-      setLoginData({ email: "", password: "" })
-    } catch (error) {
-      alert("Login failed. Please try again.")
-    } finally {
-      setIsLoading(false)
+ const handleLogin = async (e) => {
+  console.log("sign in data=>",loginData)
+  e.preventDefault(); // prevent form from refreshing
+  setIsLoading(true);
+  try {
+    const response = await dispatch(signIn(loginData));
+    if (signIn.fulfilled.match(response)) {
+      localStorage.setItem("user_id", String(response?.payload?.data?.userId));
+      alert("Logged in successfully!");
+      onClose(); // optionally close modal on success
+    } else {
+      alert(response?.payload?.message || errorMessage ||"Login failed");
     }
+  } catch (e) {
+    alert("Login failed. Please try again.");
+  } finally {
+    setIsLoading(false);
   }
+};
+
 
 
   const handleInputChange = (e) => {

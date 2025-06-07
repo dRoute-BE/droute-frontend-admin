@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import UserEntity from "./pages/UserEntity";
-import DriverEntity from "./pages/DriverEntity";
+import AllUsers from "./pages/allUsers";
+import AllDrivers from "./pages/allDrivers";
 import Landing from "./pages/Landing";
 import VerifyDriver from "./pages/VerifyDriver";
 import DriverJourney from "./pages/driverJourney";
@@ -27,8 +27,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<Navigate to="verifydriver" />} />
           <Route path="verifydriver" element={<VerifyDriver />} />
-          <Route path="user" element={<UserEntity />} />
-          <Route path="driver" element={<DriverEntity />} />
+          <Route path="user" element={<AllUsers />} />
+          <Route path="driver" element={<AllDrivers />} />
           <Route path="driverjourney" element={<DriverJourney />} />
           <Route path="alljourney" element={<AllJourney />} />
           <Route path="support" element={<SupportAdminDashboard />} />

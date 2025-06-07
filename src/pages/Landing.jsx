@@ -36,7 +36,7 @@ export default function Landing() {
       <LoginModal
         isOpen={activeModal === "login"}
         onClose={closeModal}
-        onSwitchToSignup={() => openModal("signup")}
+        // onSwitchToSignup={() => openModal("signup")}
         onSwitchToForgotPassword={() => openModal("forgot-password")}
       />
 
