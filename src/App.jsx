@@ -11,10 +11,12 @@ import AllOrders from "./pages/allOrders";
 import JourneyOrders from "./pages/journeyOrders";
 import SupportAdminDashboard from "./pages/SupportAdminDashboard";
 import NotFound from "./pages/NotFound";
+import { useSelector } from "react-redux";
+import { selectUser } from "./redux/selector";
 
 function App() {
-  const user = true;
-
+  
+  const user = useSelector(selectUser);
   return (
     <Routes>
       {/* 👇 Route for "/" based on user */}
@@ -36,7 +38,7 @@ function App() {
       )}
 
       {/* Catch-all route */}
-      <Route path="*" element={<NotFound />} />
+      <Route path="*" element={<Landing />} />
     </Routes>
   );
 }
