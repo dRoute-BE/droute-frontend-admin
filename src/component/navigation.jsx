@@ -6,13 +6,12 @@ const Navigation = () => {
   const location = useLocation(); // 🔍 Get current path
 
   const navItems = [
-    { label: "Verify Driver", path: "/verifydriver" },
-    { label: "User", path: "/user" },
-    { label: "Driver", path: "/driver" },
-    { label: "Order", path: "/allorders" },
-    { label: "Journey", path: "/alljourney" },
-    { label: "Support", path: "/support" },
-
+    { label: "Verify Driver", path: "/dashboard/verifydriver" },
+    { label: "User", path: "/dashboard/user" },
+    { label: "Driver", path: "/dashboard/driver" },
+    { label: "Order", path: "/dashboard/allorders" },
+    { label: "Journey", path: "/dashboard/alljourney" },
+    { label: "Support", path: "/dashboard/support" },
   ];
 
   return (

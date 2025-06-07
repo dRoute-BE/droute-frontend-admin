@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import UserEntity from "./pages/UserEntity";
 import DriverEntity from "./pages/DriverEntity";
@@ -10,23 +10,33 @@ import AllJourney from "./pages/allJourney";
 import AllOrders from "./pages/allOrders";
 import JourneyOrders from "./pages/journeyOrders";
 import SupportAdminDashboard from "./pages/SupportAdminDashboard";
+import NotFound from "./pages/NotFound";
 
 function App() {
+  const user = true;
+
   return (
     <Routes>
-      //landing page
-      <Route path="/" element={<Landing />} />
-      {/* Redirect root to dashboard */}
-      <Route path="/dashboard" element={<Dashboard />}>
-        <Route path="verifydriver" element={<VerifyDriver />} />
-        <Route path="user" element={<UserEntity />} />
-        <Route path="driver" element={<DriverEntity />} />
-        <Route path="driverjourney" element={<DriverJourney />} />
-        <Route path="alljourney" element={<AllJourney />} />
-        <Route path="support" element={<SupportAdminDashboard />} />
-        <Route path="allorders" element={<AllOrders />} />
-        <Route path="journeyorders" element={<JourneyOrders />} />
-      </Route>
+      {/* 👇 Route for "/" based on user */}
+      <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Landing />} />
+
+      {/* Dashboard + Nested Routes for logged-in users */}
+      {user && (
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route index element={<Navigate to="verifydriver" />} />
+          <Route path="verifydriver" element={<VerifyDriver />} />
+          <Route path="user" element={<UserEntity />} />
+          <Route path="driver" element={<DriverEntity />} />
+          <Route path="driverjourney" element={<DriverJourney />} />
+          <Route path="alljourney" element={<AllJourney />} />
+          <Route path="support" element={<SupportAdminDashboard />} />
+          <Route path="allorders" element={<AllOrders />} />
+          <Route path="journeyorders" element={<JourneyOrders />} />
+        </Route>
+      )}
+
+      {/* Catch-all route */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
