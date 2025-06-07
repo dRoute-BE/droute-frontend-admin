@@ -24,9 +24,14 @@ export function ImageModal({ isOpen, onClose, imageUrl }) {
   );
 }
 
-export function StatusModal({ isOpen, onClose, onSubmit, currentStatus }) {
+export function StatusModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  currentStatus,
+}) {
   const [selectedStatus, setSelectedStatus] = useState(currentStatus);
-
+  const [isLoading,setIsLoading]=useState(false);
   useEffect(() => {
     setSelectedStatus(currentStatus);
   }, [currentStatus]);
@@ -62,9 +67,17 @@ export function StatusModal({ isOpen, onClose, onSubmit, currentStatus }) {
           </button>
           <button
             onClick={() => onSubmit(selectedStatus)}
-            className="px-4 py-1 bg-teal-600 text-white hover:bg-teal-800 rounded-sm"
+            disabled={isLoading}
+            className="w-1/3 rounded-sm bg-cyan-600 text-sm text-white px-4 py-2 hover:bg-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-300 shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center"
           >
-            Submit
+            {isLoading ? (
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 border-1 border-t-6 border-white rounded-full animate-spin" />
+                <span className="font-semibold">wait..</span>
+              </div>
+            ) : (
+              "Submit"
+            )}
           </button>
         </div>
       </div>
@@ -94,6 +107,7 @@ export function CreateDriverModal({ isOpen, onClose }) {
     dlImageURI: "",
     rcImageURI: "",
   });
+const [isLoading,setIsLoading]=useState(false);
 
   const handleChange = (key) => (e) => {
     setFormData((prev) => ({ ...prev, [key]: e.target.value }));
@@ -184,11 +198,19 @@ export function CreateDriverModal({ isOpen, onClose }) {
           >
             Cancel
           </button>
-          <button
+         <button
             onClick={handleCreate}
-            className="bg-cyan-700 hover:bg-cyan-800 text-white px-4 py-1 rounded"
+            disabled={isLoading}
+            className="w-1/3 rounded-sm bg-cyan-600 text-sm text-white px-4 py-2 hover:bg-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-300 shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center"
           >
-            Create
+            {isLoading ? (
+              <div className="flex items-center space-x-1">
+                <div className="w-5 h-5 border-1 border-t-6 border-white rounded-full animate-spin" />
+                <span className="font-semibold">wait..</span>
+              </div>
+            ) : (
+              "Create"
+            )}
           </button>
         </div>
       </div>
@@ -205,6 +227,7 @@ export function CreateUserModal({ isOpen, onClose }) {
     confirmPassword: "",
     avatarImageURI: "",
   });
+const [isLoading,setIsLoading]=useState(false);
 
   const handleChange = (key) => (e) => {
     setFormData((prev) => ({ ...prev, [key]: e.target.value }));
@@ -225,7 +248,7 @@ export function CreateUserModal({ isOpen, onClose }) {
     { label: "Password", key: "password", type: "password" },
     { label: "Confirm Password", key: "confirmPassword", type: "password" },
   ];
-
+  
   const imageFields = [{ label: "Avatar Image", key: "avatarImageURI" }];
 
   const handleCreate = () => {
@@ -281,9 +304,17 @@ export function CreateUserModal({ isOpen, onClose }) {
           </button>
           <button
             onClick={handleCreate}
-            className="bg-cyan-700 hover:bg-cyan-800 text-white px-4 py-1 rounded"
+            disabled={isLoading}
+            className="w-1/3 rounded-sm bg-cyan-600 text-sm text-white px-4 py-2 hover:bg-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-300 shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center"
           >
-            Create
+            {isLoading ? (
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 border-1 border-t-6 border-white rounded-full animate-spin" />
+                <span className="font-semibold">wait..</span>
+              </div>
+            ) : (
+              "Create"
+            )}
           </button>
         </div>
       </div>
@@ -302,7 +333,9 @@ export function DriverControlModal({ isOpen, onClose, driverEntity }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
       <div className="bg-white p-6 rounded-lg shadow-md w-[90%] max-w-md">
-        <h2 className="text-xl font-bold mb-4 text-orange-700">Driver: {driverEntity.name}</h2>
+        <h2 className="text-xl font-bold mb-4 text-orange-700">
+          Driver: {driverEntity.name}
+        </h2>
 
         <div className="space-y-3">
           <button
@@ -343,8 +376,7 @@ export function DriverControlModal({ isOpen, onClose, driverEntity }) {
   );
 }
 
-
-export function JourneyControlModal({ isOpen, onClose,  journeyEntity }) {
+export function JourneyControlModal({ isOpen, onClose, journeyEntity }) {
   const navigate = useNavigate();
 
   if (!isOpen || !journeyEntity) return null;
@@ -355,7 +387,9 @@ export function JourneyControlModal({ isOpen, onClose,  journeyEntity }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
       <div className="bg-white p-6 rounded-lg shadow-md w-[90%] max-w-md">
-        <h2 className="text-xl font-bold mb-4 text-orange-700">Journey Id: {journeyEntity.id}</h2>
+        <h2 className="text-xl font-bold mb-4 text-orange-700">
+          Journey Id: {journeyEntity.id}
+        </h2>
 
         <div className="space-y-3">
           <button

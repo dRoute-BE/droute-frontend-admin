@@ -38,7 +38,7 @@ function DriverEntity() {
     { key: "status", label: "Status" },
     { key: "control", label: "control" },
   ];
-
+ const [isLoading, setIsLoading] = useState(false);
   const [tableData, setTableData] = useState([
     {
       id: "1",
@@ -91,6 +91,15 @@ function DriverEntity() {
 
   return (
     <div className="w-full h-screen flex flex-col">
+         {isLoading?(<div className="flex-1 flex items-center justify-center bg-white">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-14 h-14 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+            <div className="text-orange-600 font-medium text-lg">
+              Loading Drivers...
+            </div>
+          </div>
+        </div>):(
+          <>
       <div className="bg-orange-100 border-b border-orange-500 h-14 flex items-center justify-around px-4">
         <input
           type="text"
@@ -218,7 +227,7 @@ function DriverEntity() {
         isOpen={controlModalOpen}
         onClose={() => setControlModalOpen(false)}
         driverEntity={selectedDriver}
-      />
+      /></>)}
     </div>
   );
 }

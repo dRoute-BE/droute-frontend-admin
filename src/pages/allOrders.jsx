@@ -6,7 +6,7 @@ import { JourneyControlModal } from "../component/reusableComponent";
 function AllOrders() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
- 
+  const [isLoading, setIsLoading] = useState(false);
   const tableHeaders = [
     { key: "id", label: "ID" },
     { key: "pickupAddress", label: "Pickup Address" },
@@ -48,6 +48,14 @@ function AllOrders() {
 
   return (
     <div className="w-full h-screen flex flex-col">
+        {isLoading?( <div className="flex-1 flex items-center justify-center bg-white">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-14 h-14 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+            <div className="text-orange-600 font-medium text-lg">
+              Loading Orders...
+            </div>
+          </div>
+        </div>):(<>
       <div className="bg-orange-100 border-b border-orange-500 h-14 flex items-center  px-4">
         <input
           type="text"
@@ -114,7 +122,7 @@ function AllOrders() {
           </table>
         </div>
       </div>
-
+    </>)}
     </div>
   );
 }
