@@ -11,6 +11,8 @@ const Navigation = () => {
     { label: "Driver", path: "/driver" },
     { label: "Order", path: "/allorders" },
     { label: "Journey", path: "/alljourney" },
+    { label: "Support", path: "/support" },
+
   ];
 
   return (
